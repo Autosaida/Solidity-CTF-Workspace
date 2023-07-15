@@ -29,7 +29,6 @@ async function main() {
         smartCounterContract = SmartCounter__factory.connect(contractAddress, attacker);
         log(`Successfully connected to the target contract with address ${chalk.yellow(await smartCounterContract.getAddress())}!`)
     }
-    // help();
 
     if(smartCounterContract) {
         // sstore(0, caller())

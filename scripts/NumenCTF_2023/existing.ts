@@ -37,7 +37,6 @@ async function main() {
         existingContract = Existing__factory.connect(contractAddress, attacker);
         log(`Successfully connected to the target contract with address ${chalk.yellow(await existingContract.getAddress())}!`)
     }
-    // help();
 
     if(existingContract) {
         tx = await existingContract.share_my_vault();
