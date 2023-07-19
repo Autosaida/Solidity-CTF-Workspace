@@ -4,7 +4,7 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "hardhat/console.sol";
 
 
-contract NC is IERC20 {
+contract NCNumen23 is IERC20 {
     mapping(address => uint256) private _balances;
     mapping(address => mapping(address => uint256)) private _allowances;
 
@@ -117,16 +117,16 @@ struct SignedByowner {
     Signature signature;
 }
 
-contract NumenWallet {
+contract WalletNumen23 {
     address[] public owners;
     address immutable public token;
-    NumenVerifier immutable public verifier;
+    VerifierNumen23 immutable public verifier;
     mapping(address => uint256) public contribution;
     address[] public contributors;
 
     constructor() {
-        token = address(new NC());
-        verifier = new NumenVerifier();
+        token = address(new NCNumen23());
+        verifier = new VerifierNumen23();
         initWallet();
     }
 
@@ -185,7 +185,7 @@ contract NumenWallet {
     
 }
 
-contract NumenVerifier{
+contract VerifierNumen23{
 
     function verify(address _to, uint256 _amount, SignedByowner calldata scoupon) public pure {
         Holder memory holder = scoupon.holder;

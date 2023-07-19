@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.17;
-import "./asslot.sol";
+pragma solidity 0.8.18;
+import "./Asslot.sol";
 import "@openzeppelin/contracts/proxy/Clones.sol";
 import "hardhat/console.sol";
 
-contract AsslotAttack {
+contract AsslotNumen23Attack {
     address public proxyAddress;
 
     function clone() public {
@@ -12,7 +12,7 @@ contract AsslotAttack {
     }
 
     function solve(address target) public {
-        Asslot a = Asslot(target);
+        AsslotNumen23 a = AsslotNumen23(target);
         a.f00000000_bvvvdlt();
     }
 

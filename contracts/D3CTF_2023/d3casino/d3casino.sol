@@ -3,7 +3,7 @@
 pragma solidity ^0.8.17;
 import "hardhat/console.sol";
 
-contract D3Casino{
+contract D3CasinoD323{
     uint256 constant mod = 17;
     uint256 constant SAFE_GAS = 10000;
     uint256 public lasttime;

@@ -1,24 +1,13 @@
-// damn brackets
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.12;
 import "hardhat/console.sol";
 
 
-interface valid{
+interface validS23{
     function isValid(string memory ) external view returns(uint);
 }
 
-
-interface tes{
-    function deploy(uint salt,bytes memory code)external returns(address);
-}
-contract Deployer {
-    constructor(bytes memory code) payable { assembly { return (add(code, 0x20), mload(code)) } }
-}
-
-
-
-contract DamnBrackets {
+contract DamnBracketsS23 {
     uint private solved ;
     mapping(uint=>string) private char;
     mapping(string=>bool) private checker;
@@ -65,7 +54,7 @@ contract DamnBrackets {
         }
         require(x > 0 && x <= 0xfb);
         for (uint i = 0;i<32;i++){
-            uint res = valid(target).isValid(char[i])>>0xf8;
+            uint res = validS23(target).isValid(char[i])>>0xf8;
             bool flag = res == 0 ? false : true;
             bool flag0 = flag == checker[char[i]] ? true : false;
             if(flag0){

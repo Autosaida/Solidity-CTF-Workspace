@@ -1,46 +1,18 @@
 import chalk from "chalk";
 import { ethers } from "hardhat";
-import { LenderPool__factory, LenderPoolAttack__factory, LenderPoolCheck__factory } from "../../typechain";
-
-function log(s:string){
-    console.log(`${chalk.green("[-] ")+s}`)
-}
+import { LenderPoolCheckNumen23__factory, LenderPoolCheckNumen23, LenderPoolNumen23Attack__factory } from "../../typechain";
+import { log, initialize } from "../utils";
 
 
 async function main() {
-    const signers = await ethers.getSigners();
-    const provider = ethers.provider;
-    const network = await provider.getNetwork();
-    const deployer = signers[0];
-    const attacker = signers[2];
+    let [lenderPoolCheckNumen23Contract, attacker] = await initialize<LenderPoolCheckNumen23>(LenderPoolCheckNumen23__factory);
 
-    log(`Running on the ${chalk.yellow(network.name)} network`);
-    log(`Attacker address: ${chalk.yellow(attacker.address)}`);
-    log(`Attacker balance: ${chalk.yellow(ethers.formatEther(await provider.getBalance(attacker)))} ETH`);
-
-    let lenderPoolCheckContract;
-    let tx;
-    if(network.name == "hardhat") {
-        lenderPoolCheckContract = await new LenderPoolCheck__factory(deployer).deploy();
-        await lenderPoolCheckContract.waitForDeployment();
-        lenderPoolCheckContract = lenderPoolCheckContract.connect(attacker);
-        log(`Successfully deployed the target contract to address ${chalk.yellow(await lenderPoolCheckContract.getAddress())}!`)
-    } else if (network.name == "remote") {
-        const contractAddress = "0x0000000000000000000000000000000000000000";
-        lenderPoolCheckContract = LenderPoolCheck__factory.connect(contractAddress, attacker);
-        log(`Successfully connected to the target contract with address ${chalk.yellow(await lenderPoolCheckContract.getAddress())}!`)
-    }
-
-
-    if(lenderPoolCheckContract) {
-        const lenderPoolAttack = await new LenderPoolAttack__factory(attacker).deploy();
-        await lenderPoolAttack.waitForDeployment();
-        const lenderPool = await lenderPoolCheckContract.lenderPool();
-        tx = await lenderPoolAttack.attack(lenderPool);
-        await tx.wait();
-        log(`Is solved: ${chalk.yellow(await lenderPoolCheckContract.isSolved())}`);
-    
-    }
+    const lenderPoolNumen23Attack = await new LenderPoolNumen23Attack__factory(attacker).deploy();
+    await lenderPoolNumen23Attack.waitForDeployment();
+    const lenderPool = await lenderPoolCheckNumen23Contract.lenderPool();
+    let tx = await lenderPoolNumen23Attack.attack(lenderPool);
+    await tx.wait();
+    log(`Is solved: ${chalk.yellow(await lenderPoolCheckNumen23Contract.isSolved())}`);
     
 }
 

@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-contract ERC20 is IERC20 {
+contract ERC20Numen23 is IERC20 {
     mapping(address => uint256) private _balances;
     mapping(address => mapping(address => uint256)) private _allowances;
 
@@ -103,14 +103,14 @@ contract ERC20 is IERC20 {
     }
 }
 
-contract LenderPool is ReentrancyGuard {
+contract LenderPoolNumen23 is ReentrancyGuard {
     using Address for address;
     IERC20 public immutable token0;
     IERC20 public immutable token1;
 
     constructor() {
-        token0 = new ERC20();
-        token1 = new ERC20();
+        token0 = new ERC20Numen23();
+        token1 = new ERC20Numen23();
     }
 
     function swap(address tokenAddress,uint amount) public returns(uint){ // no nonReentrant, could be called from receiveEther
@@ -146,11 +146,11 @@ contract LenderPool is ReentrancyGuard {
 
 }
 
-contract LenderPoolCheck {
-    LenderPool public lenderPool;
+contract LenderPoolCheckNumen23 {
+    LenderPoolNumen23 public lenderPool;
     IERC20 token0;
     constructor(){
-        lenderPool = new LenderPool();
+        lenderPool = new LenderPoolNumen23();
         token0 = lenderPool.token0();
     }
 

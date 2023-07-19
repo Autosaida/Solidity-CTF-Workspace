@@ -9,13 +9,12 @@ dotenvConfig({ path: resolve(__dirname, "./.env") });  // Loads .env file conten
 
 const PRIVATE_KEY1 = process.env.PRIVATE_KEY1 || "";
 const PRIVATE_KEY2 = process.env.PRIVATE_KEY2 || "";
-const PRIVATE_KEY3 = process.env.PRIVATE_KEY3 || "";
 const RPC_URL = process.env.RPC_URL || "";
 
 function createNetConfig(): NetworkUserConfig {
   const url: string = RPC_URL;
   return {
-    accounts: [PRIVATE_KEY1, PRIVATE_KEY2, PRIVATE_KEY3],
+    accounts: [PRIVATE_KEY1, PRIVATE_KEY2],
     url: url,
   };
 }
@@ -29,10 +28,6 @@ function createLocalnetConfig(): HardhatNetworkUserConfig {
     },
     {
       privateKey: PRIVATE_KEY2,
-      balance: "10000000000000000000",
-    },
-    {
-      privateKey: PRIVATE_KEY3,
       balance: "10000000000000000000",
     },
     ];

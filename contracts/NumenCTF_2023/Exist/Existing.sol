@@ -1,6 +1,7 @@
+// SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.6.12;
 
-contract Existing{
+contract ExistingNumen23{
 
 	string public name = "Existing";
 	string public symbol = "EG";

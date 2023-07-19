@@ -5,6 +5,8 @@ coverage.json
 typechain
 typechain-types
 
+todo
+
 #Hardhat files
 cache
 artifacts

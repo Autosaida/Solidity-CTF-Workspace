@@ -2,7 +2,7 @@
 pragma solidity ^0.8.4;
 import "hardhat/console.sol";
 
-contract PrivilegeFinance { 
+contract PrivilegeFinanceNumen23 { 
     
 	string public name = "Privilege Finance";
 	string public symbol = "PF";
@@ -38,7 +38,7 @@ contract PrivilegeFinance {
         Timeintervallimit += Timeinterval;
     }
 
-    function deposit(address token, uint256 amount, address _ReferrerAddress) public {
+    function deposit(address /*token*/, uint256 amount, address _ReferrerAddress) public {
         require(amount > 0, "amount zero!");   // set referrer
         if (msg.sender != address(0) && _ReferrerAddress != address(0) && msg.sender != _ReferrerAddress && referrers[msg.sender] == address(0)) {
             referrers[msg.sender] = _ReferrerAddress;
@@ -47,7 +47,7 @@ contract PrivilegeFinance {
         balances[address(this)] += amount;
     }
   
-    function withdraw(address token, uint256 amount) public {
+    function withdraw(address /*token*/, uint256 amount) public {
         require(balances[msg.sender] == 0 && block.timestamp >= Timewithdrawlimit,"Collection time not reached");
         require(amount > 0 && amount <= 2000,"Financial restrictions");
         Timewithdrawlimit += Timewithdraw;
@@ -76,7 +76,7 @@ contract PrivilegeFinance {
             amount = amount - _fee;
 
         }else if(recipient == admin){
-            uint256 _fee = amount * transferRate / 100;  // 999 * 50/100 = 449
+            uint256 _fee = amount * transferRate / 100;  // 999 * 50/100 = 499
             _transfer(address(this), referrers[msg.sender], _fee * ReferrerFees / transferRate); // 499 * x / 50 -> 10*x -> referrer
             _transfer(msg.sender, BurnAddr, _fee * burnFees / transferRate);
             amount = amount - _fee;

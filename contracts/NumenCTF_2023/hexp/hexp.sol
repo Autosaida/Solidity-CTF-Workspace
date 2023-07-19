@@ -1,7 +1,8 @@
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 import "hardhat/console.sol";
 
-contract Hexp {
+contract HexpNumen23 {
     address public immutable target;
     bool flag;
 
@@ -17,6 +18,7 @@ contract Hexp {
 
     function f00000000_bvvvdlt() external {
         (bool succ, bytes memory ret) = target.call(hex"");
+        ret;
         assert(succ);
         flag = true;
     }

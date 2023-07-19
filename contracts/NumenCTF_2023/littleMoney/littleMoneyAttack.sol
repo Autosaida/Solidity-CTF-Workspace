@@ -1,7 +1,8 @@
+// SPDX-License-Identifier: MIT
 pragma solidity 0.8.12;
 import "hardhat/console.sol";
 
-contract LittleMoneyAttack {
+contract LittleMoneyNumen23Attack {
     address private owner;
 
     constructor() {

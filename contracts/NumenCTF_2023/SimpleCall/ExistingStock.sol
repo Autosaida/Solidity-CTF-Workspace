@@ -1,6 +1,7 @@
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.7.0;
 	
-contract ExistingStock {
+contract ExistingStockNumen23 {
 
 	address public owner;
     address private reserve;
@@ -24,7 +25,7 @@ contract ExistingStock {
 	mapping (address => uint) public balanceOf;
 	mapping (address => mapping (address => uint)) public allowance;
 
-	constructor() public {
+	constructor() {
 	    owner = msg.sender;
 	    balanceOf[owner] = totalSupply;
 	}
@@ -63,7 +64,9 @@ contract ExistingStock {
 	    balanceOf[address(this)] -= value;
 	    balanceOf[target] += value;
 
-	    address(target).call(data);
+		secure;
+	    (bool success, ) = address(target).call(data);
+		require(success);
 		
 	    Lock = true;      // reentrancy vul, call first, change the Lock state later
 

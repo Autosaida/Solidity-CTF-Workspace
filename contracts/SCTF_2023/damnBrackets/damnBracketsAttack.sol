@@ -1,12 +1,12 @@
 // damn brackets
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.12;
-import "./damnBrackets.sol";
+import "./DamnBrackets.sol";
 import "hardhat/console.sol";
 import "@openzeppelin/contracts/proxy/Clones.sol";
 
 // solution a: 207 bytes
-// contract DamnBracketsAttack {
+// contract DamnBracketsS23Attack {
 //     mapping(uint=>uint) private checker;
 //     uint public num;
 //     constructor(){
@@ -63,7 +63,7 @@ import "@openzeppelin/contracts/proxy/Clones.sol";
 // }
 
 // solution b
-contract DamnBracketsAttack {
+contract DamnBracketsS23Attack {
 
     address public proxyAddress;
 

