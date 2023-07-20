@@ -1,9 +1,13 @@
-import { HardhatUserConfig } from "hardhat/config";
+import { HardhatUserConfig, task } from "hardhat/config";
 import { HardhatNetworkUserConfig, NetworkUserConfig, HardhatNetworkAccountUserConfig } from "hardhat/types";
 import "@nomicfoundation/hardhat-toolbox";
 
 import { config as dotenvConfig } from "dotenv";
-import { resolve } from "path"
+import { readdirSync } from "fs";
+import { resolve, join } from "path";
+import { execSync } from "child_process";
+import chalk from "chalk";
+
 dotenvConfig({ path: resolve(__dirname, "./.env") });  // Loads .env file contents into process.env.
 
 
@@ -79,5 +83,40 @@ const config: HardhatUserConfig = {
     target: "ethers-v6",
   },
 };
+
+
+task('run-all', 'Run all scripts to test')
+  .setAction(async (_, hre) => {
+    const scriptsDir = join(__dirname, 'scripts');
+    const contestDirs = readdirSync(scriptsDir, { withFileTypes: true })
+      .filter((dirent: { isDirectory: () => any; }) => dirent.isDirectory())
+      .map((dirent: { name: any; }) => dirent.name);
+
+    const errorLogs = [];
+
+    for (const contestDir of contestDirs) {
+      console.log(`${chalk.green("[-] Start ")}`+ contestDir);
+      const contestDirPath = join(scriptsDir, contestDir);
+      const scriptFiles = readdirSync(contestDirPath).filter(file => file.endsWith('.ts'));
+      for (const file of scriptFiles) {
+        try {
+          execSync(`npx hardhat run ${join(contestDirPath, file)}`, {stdio: "ignore"});
+          console.log(`${chalk.green("[-] ")}`+file+` ${chalk.green("pass")}`);
+        } catch (error) {
+          errorLogs.push({ contestDir, file, error });
+        }
+      }
+    }
+
+    if (errorLogs.length > 0) {
+      console.log(`${chalk.red("[x] ")}Errors occurred while executing the following scripts:`);
+      for (const { contestDir, file, error } of errorLogs) {
+        console.log(`${chalk.red("[x] ")}Contest: ${contestDir}, Script: ${chalk.red(file)}`);
+      }
+    } else {
+      console.log(`${chalk.green("[-] ")}All scripts executed successfully!`);
+    }
+  });
+
 
 export default config;
