@@ -40,7 +40,9 @@ function createLocalnetConfig(): HardhatNetworkUserConfig {
     // blockGasLimit: 80000000,
     accounts: accounts,
     forking: {
+      enabled: true,
       url: "https://rpc.sepolia.org/",
+      // url: RPC_URL,
     }
   }
 }
