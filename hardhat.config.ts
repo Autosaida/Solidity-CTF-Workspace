@@ -27,7 +27,7 @@ function createLocalnetConfig(): HardhatNetworkUserConfig {
   const accounts: HardhatNetworkAccountUserConfig[] = [
     {
       privateKey: PRIVATE_KEY1,
-      balance: "100000000000000000000",    // 100 eth
+      balance: "10000000000000000000000",    // 10000 eth
     },
     {
       privateKey: PRIVATE_KEY2,
