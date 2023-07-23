@@ -5,7 +5,7 @@ import { log, initialize } from "../utils";
 
 
 async function main() {
-    let [setupDeceptionCrew23Contract, attacker] = await initialize<SetupDeceptionCrew23>(SetupDeceptionCrew23__factory, undefined, undefined, "0xb0f260b6d7bAcd396647512E81A96F2f38576dB4");
+    let [setupDeceptionCrew23Contract, attacker] = await initialize<SetupDeceptionCrew23>(SetupDeceptionCrew23__factory, undefined, undefined, "0", "0xb0f260b6d7bAcd396647512E81A96F2f38576dB4");
     let deceptionAddress = await setupDeceptionCrew23Contract.TARGET();
     log(`Deception address: ${deceptionAddress}`);
     let deceptionContract = DeceptionCrew23__factory.connect(deceptionAddress, attacker);
