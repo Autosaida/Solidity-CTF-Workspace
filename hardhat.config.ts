@@ -25,10 +25,9 @@ function createNetConfig(): NetworkUserConfig {
 
 function createLocalnetConfig(): HardhatNetworkUserConfig {
   const accounts: HardhatNetworkAccountUserConfig[] = [
-    // 10 eth
     {
       privateKey: PRIVATE_KEY1,
-      balance: "10000000000000000000",
+      balance: "100000000000000000000",    // 100 eth
     },
     {
       privateKey: PRIVATE_KEY2,
@@ -62,6 +61,7 @@ const config: HardhatUserConfig = {
       { version: "0.8.12" },
       { version: "0.8.15" },
       { version: "0.8.16" },
+      { version: "0.8.17" },
       { version: "0.8.18" },
     ],
     settings: {

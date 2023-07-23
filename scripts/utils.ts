@@ -8,11 +8,14 @@ export function log(s:string){
     console.log(`${chalk.green("[-] ")+s}`)
 }
 
-export async function initialize<T>(Challenge__factory: any, attackerPrivateKey?: any, constructorArgs?: any[], challengeAddress?: any): Promise<[T, HardhatEthersSigner| Wallet]>{
+export async function initialize<T>(Challenge__factory: any, attackerPrivateKey?: any, constructorArgs?: any[], balance?: string, challengeAddress?: any): Promise<[T, HardhatEthersSigner| Wallet]>{
     const signers = await ethers.getSigners();
     const provider = ethers.provider;
     const deployer = signers[0];
     const forkingConfig = (network.config as HardhatNetworkConfig).forking;
+    if (!balance) {
+        balance = "0";
+    }
 
     let attacker: HardhatEthersSigner| Wallet = signers[1];
     if (attackerPrivateKey) {
@@ -35,9 +38,9 @@ export async function initialize<T>(Challenge__factory: any, attackerPrivateKey?
     let challengeContract;
     if(network.name == "hardhat" && forkingConfig?.url == "https://rpc.sepolia.org/") {
         if (constructorArgs) {
-            challengeContract = await new Challenge__factory(deployer).deploy(...constructorArgs);
+            challengeContract = await new Challenge__factory(deployer).deploy(...constructorArgs, {value: ethers.parseEther(balance)});
         } else {
-            challengeContract = await new Challenge__factory(deployer).deploy();
+            challengeContract = await new Challenge__factory(deployer).deploy({value: ethers.parseEther(balance)});
         }
         await challengeContract.waitForDeployment();
         challengeContract = challengeContract.connect(attacker);
