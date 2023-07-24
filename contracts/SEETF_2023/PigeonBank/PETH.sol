@@ -32,7 +32,7 @@ contract PETHSEETF23 is Ownable {
     }
 
     function withdraw(address _userAddress, uint256 _wad) public onlyOwner {  
-        payable(_userAddress).sendValue(_wad);        // the only way to get eth is sendValue method, 
+        payable(_userAddress).sendValue(_wad);        // the only way to get eth is sendValue method, do not follow Checks-Effects-Interactions Pattern 
         _burn(_userAddress, _wad);                    // change balance after call
         // require(success, "SEETH: withdraw failed");
         emit Withdrawal(_userAddress, _wad);
@@ -40,7 +40,7 @@ contract PETHSEETF23 is Ownable {
 
     function withdrawAll(address _userAddress) public onlyOwner {     
         payable(_userAddress).sendValue(balanceOf[_userAddress]);     // sendValue
-        _burnAll(_userAddress);                                     // change balance after call
+        _burnAll(_userAddress);                                     // change balance after call, do not follow Checks-Effects-Interactions Pattern 
         // require(success, "SEETH: withdraw failed");
         emit Withdrawal(_userAddress, balanceOf[_userAddress]);
     }
