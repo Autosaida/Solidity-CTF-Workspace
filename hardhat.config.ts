@@ -31,7 +31,7 @@ function createLocalnetConfig(): HardhatNetworkUserConfig {
     },
     {
       privateKey: PRIVATE_KEY2,
-      balance: "10000000000000000000",
+      balance: "10000000000000000000",      // 10 eth
     },
     ];
   return {
