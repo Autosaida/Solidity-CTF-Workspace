@@ -20,7 +20,7 @@ export async function initialize<T>(Challenge__factory: any, attackerPrivateKey?
     let attacker: HardhatEthersSigner| Wallet = signers[1];
     if (attackerPrivateKey) {
         let address = ethers.computeAddress(attackerPrivateKey);
-        if (network.name == "hardhat" && forkingConfig?.url == "https://rpc.sepolia.org/") {
+        if (network.name == "hardhat") {
             let tx = await attacker.sendTransaction({
                 to: address,
                 value: ethers.parseEther("0.9")
@@ -36,7 +36,7 @@ export async function initialize<T>(Challenge__factory: any, attackerPrivateKey?
     log(`Attacker balance: ${chalk.yellow(ethers.formatEther(await provider.getBalance(attacker)))} ETH`);
 
     let challengeContract;
-    if(network.name == "hardhat" && forkingConfig?.url == "https://rpc.sepolia.org/") {
+    if(network.name == "hardhat") {
         if (constructorArgs) {
             challengeContract = await new Challenge__factory(deployer).deploy(...constructorArgs, {value: ethers.parseEther(balance)});
         } else {
@@ -45,7 +45,7 @@ export async function initialize<T>(Challenge__factory: any, attackerPrivateKey?
         await challengeContract.waitForDeployment();
         challengeContract = challengeContract.connect(attacker);
         log(`Successfully deployed the target contract to address ${chalk.yellow(await challengeContract.getAddress())}!`)
-    } else { // remote or remoteFork
+    } else {
         if (challengeAddress) {
             challengeContract = Challenge__factory.connect(challengeAddress, attacker);
             log(`Successfully connected to the target contract with address ${chalk.yellow(await challengeContract.getAddress())}!`)

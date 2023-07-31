@@ -10,7 +10,7 @@ async function main() {
     // block.blockHash(block.number - 0x0a) & 0xffffff == gasprice & 0xffffff
     let block = await ethers.provider.getBlock((await ethers.provider.getBlockNumber())-9);  // 10 maybe late
     let hash = block?.hash;
-    let tx = await hexpNumen23Contract.f00000000_bvvvdlt({gasPrice:"0x"+hash?.slice(60, 66)});
+    let tx = await hexpNumen23Contract.f00000000_bvvvdlt({gasPrice:"0x1234"+hash?.slice(60, 66)});
     await tx.wait();
     
     log(`Is solved: ${chalk.yellow(await hexpNumen23Contract.isSolved())}`);

@@ -24,6 +24,7 @@ function createNetConfig(): NetworkUserConfig {
 }
 
 function createLocalnetConfig(): HardhatNetworkUserConfig {
+  const url: string = RPC_URL;
   const accounts: HardhatNetworkAccountUserConfig[] = [
     {
       privateKey: PRIVATE_KEY1,
@@ -40,8 +41,7 @@ function createLocalnetConfig(): HardhatNetworkUserConfig {
     accounts: accounts,
     forking: {
       enabled: true,
-      url: "https://rpc.sepolia.org/",
-      // url: RPC_URL,
+      url: url,
     }
   }
 }

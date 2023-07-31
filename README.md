@@ -29,7 +29,7 @@ To test locally, use the following command:
 hh run ./scripts/Challenge.ts
 ```
 
-By default, this command will fork the Sepolia testnet. You need to deploy the target challenge contract in the script. 
+By default, this command will fork the remote network. You could deploy the target challenge contract in the script. 
 
 To solve the challenge and interact with it remotely, use the following command:
 
