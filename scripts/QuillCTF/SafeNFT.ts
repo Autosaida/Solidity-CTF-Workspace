@@ -2,7 +2,7 @@ import chalk from "chalk";
 import { ethers } from "hardhat";
 import { SafeNFTQuill__factory, SafeNFTQuill, SafeNFTQuillAttack__factory } from "../../typechain";
 import { log, initialize } from "../utils";
-import {randomBytes} from "crypto";
+
 
 async function main() {
     let [safeNFTQuillContract, attacker] = await initialize<SafeNFTQuill>(SafeNFTQuill__factory, undefined, ["quill", "QLL", ethers.parseEther("0.01")]);

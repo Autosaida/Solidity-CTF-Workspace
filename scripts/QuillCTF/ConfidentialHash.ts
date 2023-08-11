@@ -2,7 +2,7 @@ import chalk from "chalk";
 import { ethers } from "hardhat";
 import { ConfidentialQuill__factory, ConfidentialQuill } from "../../typechain";
 import { log, initialize } from "../utils";
-import {randomBytes} from "crypto";
+
 
 async function main() {
     let [confidentialQuillContract, attacker] = await initialize<ConfidentialQuill>(ConfidentialQuill__factory);
