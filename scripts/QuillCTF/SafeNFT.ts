@@ -10,6 +10,7 @@ async function main() {
     await safeAttack.waitForDeployment();
 
     let tx = await safeAttack.attack(await safeNFTQuillContract.getAddress(), {value: ethers.parseEther("0.01")});
+    await tx.wait();
     log(`NFT number: ${chalk.yellow(await safeNFTQuillContract.balanceOf(await safeAttack.getAddress()))}`); 
 
 }
