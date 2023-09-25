@@ -1367,7 +1367,7 @@ contract LTFStaking is
         onlyOwner
     {
         // require(block.number < startBlock, "Pool has started");
-        (bool foundToken, uint256 tokenIndex) = findElementPosition(
+        (bool foundToken, ) = findElementPosition(
             _token,
             rewardTokens
         );
@@ -1534,7 +1534,7 @@ contract LTFStaking is
         view
         returns (uint256)
     {
-        (bool foundToken, uint256 tokenIndex) = findElementPosition(
+        (bool foundToken, ) = findElementPosition(
             _token,
             rewardTokens
         );
@@ -1629,7 +1629,7 @@ contract LTFStaking is
     {
         require(address(_token) != address(0), "Must be a real token");
         require(address(_token) != address(this), "Must be a real token");
-        (bool foundToken, uint256 tokenIndex) = findElementPosition(
+        (bool foundToken, ) = findElementPosition(
             _token,
             rewardTokens
         );
