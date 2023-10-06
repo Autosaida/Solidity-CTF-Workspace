@@ -1,6 +1,7 @@
 import { HardhatUserConfig, task } from "hardhat/config";
 import { HardhatNetworkUserConfig, NetworkUserConfig, HardhatNetworkAccountUserConfig } from "hardhat/types";
 import "@nomicfoundation/hardhat-toolbox";
+import "@nomiclabs/hardhat-vyper";
 
 import { config as dotenvConfig } from "dotenv";
 import { readdirSync } from "fs";
@@ -73,6 +74,14 @@ const config: HardhatUserConfig = {
         runs: 1000,
       },
     },
+  },
+
+  vyper: {
+    compilers: [
+      { version: "0.2.1" }, 
+      { version: "0.3.0" },
+      { version: "0.3.7" },
+    ],
   },
   
   etherscan: {
