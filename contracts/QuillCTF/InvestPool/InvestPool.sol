@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
-contract PoolTokenQuill is ERC20("loan token", "lnt"), Ownable {
+contract InvestPoolTokenQuill is ERC20("loan token", "lnt"), Ownable {
     function mint(uint amount) external onlyOwner {
         _mint(msg.sender, amount);
     }
@@ -61,9 +61,9 @@ contract InvestPoolQuill {
     function transferFromShare(uint amount, address from) public {
         uint size;
         assembly {
-            size := extcodesize(address())
+            size := extcodesize(address())   // this contract's codesize
         }
-        require(size == 0, "code size is not 0");
+        require(size == 0, "code size is not 0");   // so we can not call this function
         require(balance[from] >= amount, "amount is too big");
         balance[from] -= amount;
         balance[msg.sender] += amount;
@@ -75,5 +75,33 @@ contract InvestPoolQuill {
         balance[msg.sender] = 0;
         totalShares -= shares;
         token.transfer(msg.sender, toWithdraw);
+    }
+}
+
+
+contract SetupInvestQuill {
+    InvestPoolTokenQuill public token;
+    InvestPoolQuill public pool;
+    bool flag;
+    constructor() {
+        token = new InvestPoolTokenQuill();
+        pool = new InvestPoolQuill(address(token));
+        token.mint(2000 ether);
+    }
+
+    function init() public {
+        if (flag == false) {
+            flag = true;
+            token.transfer(msg.sender, 1000 ether);
+        }
+    }
+
+    function deposit(uint256 amount) public {
+        token.approve(address(pool), 1000 ether);
+        pool.deposit(amount);
+    }
+
+    function isSolved() public view returns (bool) {
+        return token.balanceOf(msg.sender) > 1000 ether;        
     }
 }
