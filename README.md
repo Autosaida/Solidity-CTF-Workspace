@@ -1,42 +1,66 @@
-# Solidity-CTF-Workspace
+## Foundry
 
-This repository contains my personal workspace and solutions to Solidity-based CTF blockchain challenges, which are typically deployed using the [SolidCTF](https://github.com/chainflag/solidctf) framework or other ways. Please note that the solutions provided are intended solely for reference purposes.
+**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+
+Foundry consists of:
+
+-   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
+-   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
+-   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
+-   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+
+## Documentation
+
+https://book.getfoundry.sh/
 
 ## Usage
 
-If you wish to make use of this workspace and explore the solutions, follow these steps:
+### Build
 
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/Autosaida/Solidity-CTF-Workspace.git
-   ```
-
-2. Install the dependencies:
-
-   ```bash
-   cd Solidity-CTF-Workspace
-   npm install
-   ```
-
-The **contracts** directory contains blockchain challenges and the corresponding solution contracts. The **scripts** directory includes interactive scripts, where `template.ts` can serve as a reference for creating your own scripts, simply replacing the contract name and target address accordingly.
-
-If you want to simulate challenges more realistically, you can refer to [SolidCTF](https://github.com/chainflag/solidctf) and [solidity-ctf-template](https://github.com/chainflag/solidity-ctf-template) to deploy the challenges on a server.
-
-To test locally, use the following command:
-
-```bash
-hh run ./scripts/Challenge.ts
+```shell
+$ forge build
 ```
 
-By default, this command will fork the remote network. You could deploy the target challenge contract in the script. 
+### Test
 
-To solve the challenge and interact with it remotely, use the following command:
-
-```bash
-hh run ./scripts/Challenge.ts --network remote
+```shell
+$ forge test
 ```
 
-Note: Before interacting with the challenge remotely, make sure to correctly fill in the RPC endpoint in the `.env` file.
+### Format
 
-Feel free to customize the settings by modifying the `hardhat.config.ts` file.
+```shell
+$ forge fmt
+```
+
+### Gas Snapshots
+
+```shell
+$ forge snapshot
+```
+
+### Anvil
+
+```shell
+$ anvil
+```
+
+### Deploy
+
+```shell
+$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
+```
+
+### Cast
+
+```shell
+$ cast <subcommand>
+```
+
+### Help
+
+```shell
+$ forge --help
+$ anvil --help
+$ cast --help
+```
