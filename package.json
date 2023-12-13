@@ -1,26 +1,7 @@
 {
-  "name": "solidity-ctf-workspace",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^3.0.0",
-    "@nomiclabs/hardhat-vyper": "^3.0.4",
-    "@openzeppelin/contracts": "^4.9.2",
-    "@prb/math": "^4.0.1",
-    "@typechain/ethers-v6": "^0.4.0",
-    "@typechain/hardhat": "^8.0.0",
-    "chalk": "^4.1.2",
-    "dotenv": "^16.3.1",
-    "hardhat": "^2.16.1",
-    "solmate": "^6.2.0",
-    "ts-node": "^10.9.1",
-    "typechain": "^8.2.0",
-    "typescript": "^5.1.6"
+    "ethers": "^6.9.0",
+    "typescript": "^5.1.6",
+    "ts-node": "^10.9.1"
   }
 }

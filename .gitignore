@@ -2,11 +2,16 @@ node_modules
 .env
 coverage
 coverage.json
-typechain
-typechain-types
 
 todo
 
-#Hardhat files
 cache
-artifacts
+
+.vscode
+
+out
+
+# Ignores development broadcast logs
+!/broadcast
+/broadcast/*
+/broadcast/*/31337/
