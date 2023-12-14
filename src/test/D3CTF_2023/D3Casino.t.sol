@@ -20,11 +20,9 @@ contract Exploiter is Test, Script {
         vm.createSelectFork("mainnet");
         // vm.createSelectFork("http://localhost:8545");
         vm.startPrank(deployer, deployer);
-        // vm.startBroadcast(attacker_key);
 
         casino = new D3Casino();
         skip(10);
-        // vm.stopBroadcast();
 
         vm.stopPrank();
         console2.log("setUp done!");

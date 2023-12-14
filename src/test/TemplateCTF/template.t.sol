@@ -17,7 +17,7 @@ contract Exploiter is Test, Script {
 
     function setUp() public {
         vm.createSelectFork("mainnet");
-        // directly use the mainnet for reproducing challenges
+        // Directly use the mainnet for reproducing challenges
         // vm.createSelectFork("http://localhost:8545");
         // Use the provided RPC during CTF competitions
         vm.startPrank(deployer, deployer);
@@ -30,7 +30,7 @@ contract Exploiter is Test, Script {
 
     // forge test --contracts .\src\test\TemplateCTF\template.t.sol -vvv
     function testExploit() public {
-        // call the solver's function with the attacker identity to test
+        // Call the solver's function with the attacker identity to test
         vm.startPrank(attacker, attacker);
 
         solve();
