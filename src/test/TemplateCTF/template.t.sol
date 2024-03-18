@@ -48,7 +48,7 @@ contract Attacker is Test, Script {
         challengeAttack.set(address(challenge));
     }
 
-    // forge script .\src\test\TemplateCTF\template.t.sol:Attacker --slow --skip-simulation --broadcast
+    // forge script --contracts .\src\test\TemplateCTF\templateScript.t.sol --slow .\src\test\TemplateCTF\templateScript.t.sol --broadcast
     function run() public {
         // Broadcast transactions, similar to tests, just need set the actual address of the instance.
         vm.startBroadcast(attacker_key);
