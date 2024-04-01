@@ -26,6 +26,7 @@ Note: Before interacting with the challenge remotely, make sure to correctly fil
 |--------------------|-------------------|
 | [SpaceBank](src/EthernautCTF_2024/SpaceBank/) | Precision Loss; Create2; Selfdestruct  |
 | [WomboCombo](src/EthernautCTF_2024/WomboCombo/) | ERC-2771: Trusted Forwarder  |
+| [XYZ](src/EthernautCTF_2024/XYZ/) | Precision Loss; Logic Puzzle  |
 
 ## 2023
 
